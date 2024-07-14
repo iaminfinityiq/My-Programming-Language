@@ -577,6 +577,13 @@ class Number {
     return this
   }
 
+  copy() {
+    const copy = new Number(this.value)
+    copy.set_position(this.pos_start, this.pos_end)
+    copy.set_context(this.context)
+    return copy
+  }
+
   add(other) {
     if (other instanceof Number) {
       let return_result = {"result": null, "error": null}
@@ -718,7 +725,7 @@ class SymbolTable {
   }
 
   get_(name) {
-    const value = this.symbols[name]
+    let value = this.symbols[name]
     if (value === undefined && this.parent !== null) {
       return this.parent.get_(name)
     }
